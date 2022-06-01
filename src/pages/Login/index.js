@@ -4,18 +4,20 @@ import {
   Titulo,
   InputContainer
 } from './styles';
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { UsuarioContext } from 'common/contexts/Usuario';
 import {
   Input,
   InputLabel,
-  InputAdornment
+  InputAdornment 
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
-import { UsuarioContext } from 'common/context/Usuario';
-import { useContext } from 'react';
 
 function Login() {
   const history = useHistory();
   const { nome, setNome, saldo, setSaldo } = useContext(UsuarioContext);
+  
+
   return (
     <Container>
       <Titulo>
@@ -26,9 +28,9 @@ function Login() {
           Nome
         </InputLabel>
         <Input
-          value={nome}
           type="text"
-          onChange={(e) => setNome(e.target.value)}
+          value={nome}
+          onChange={(event) => setNome(event.target.value)}
         />
       </InputContainer>
       <InputContainer>
@@ -36,21 +38,21 @@ function Login() {
           Saldo
         </InputLabel>
         <Input
-          type="number"
-          value={saldo}
-          onChange={(e) => setSaldo(e.target.value)}
-          startAdornment={
-            <InputAdornment position="start">
-              R$
-            </InputAdornment>
-          }
-        />
+        value={saldo}
+        type="number"
+        onChange={event => setSaldo(Number(event.target.value))}
+        startAdornment={
+          <InputAdornment position="start">
+            R$
+          </InputAdornment>
+        }
+      />
       </InputContainer>
       <Button
         variant="contained"
         color="primary"
         disabled={nome.length < 4}
-        onClick={(e) => history.push('/feira')}
+        onClick={() => history.push('/feira')}
       >
         Avançar
       </Button>
